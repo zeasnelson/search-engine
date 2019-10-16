@@ -1,0 +1,69 @@
+
+/*Navigation bar*/
+.home-icon{
+	width: 16px;
+	height: 16px;
+}
+
+.nav-bar {
+	width: 80%;
+	border-radius: 30px;
+	min-width: 440px;
+	background: #272822;
+}
+
+.about-me-icon {
+	width: 50px;
+	height: 50px;
+}
+
+.nav-icon {
+	float: right;
+}
+
+.nav-icon:hover {
+	cursor: pointer;
+}
+
+.nav-icon-wrap {
+    padding: 6px;
+    background: #272822;
+    border-radius: 50%;
+}
+
+.nav-icon-wrap:hover {
+	background: #4a4a48;
+}
+
+.dropdown-header {
+	font-size: 1.2rem;
+}
+
+.home, .browser-specs {
+	color: #babab8;
+}
+
+.browser-specs, .course-links, .nav-icon, .home{
+	display: inline-block;
+}
+
+.browser-specs > a:hover, .course-links > a:hover, .home:hover, .browser-specs:hover {
+	color: white;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.browser-specs > a, .course-links > a {
+	color: #babab8;
+}
+
+.browser-specs, .course-links {
+	height: 100%;
+	padding-top: 12px;
+}
+
+.redirect {
+	width: 10px;
+	height: 10px;
+	float: right;
+}

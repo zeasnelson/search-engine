@@ -1,0 +1,41 @@
+
+
+.brow-tbl {
+    margin: auto;
+    text-align: center;
+    width: 80%;
+    height: 100%;
+    background: #333;
+  }
+  
+  .brow-tbl-h {
+    font-size: 1.5rem;
+  }
+  
+  .brow-tbl-th {
+      color: white;
+  }
+  
+  
+  .brow-tbl-th ,  .brow-tbl-td{
+      border: thin solid white;
+    padding: 2px 10px;
+  }
+  
+  .brow-tbl-td {
+      word-break: break-word;
+      color: #f0f0f0;
+    font-family: sans-serif;
+  }
+
+  
+  .tables {
+    margin-top: 5px;
+    padding: 2%;
+    background: #272822;
+    border-radius: 10%;
+  }
+
+  .browser-tables {
+    border-radius: 2%;
+  }

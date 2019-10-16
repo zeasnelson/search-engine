@@ -1,0 +1,51 @@
+
+/* search results */
+/* table stalying */
+.res-table {
+    text-align: left;
+  }
+  
+  .res-table-h {
+    font-size: 1.5rem;
+  }
+  
+  .res-table-r > td {
+      color: black;
+  }
+  
+  .res-table-r > td {
+      word-break: break-word;
+    font-family: sans-serif;
+  }
+  
+  .header:hover {
+      color: blue;
+      text-decoration: none;
+  }
+  
+  .header{
+      color: blue;
+  }
+  
+  .link {
+      color: green;
+  }
+  
+  .link:hover {
+      color: green;
+  }
+  
+  .description {
+      color: black;
+  }
+
+  .res-checkbox {
+    float: left;
+    margin-top: 4px;
+  }
+  
+  .res-table-box {
+    margin-left: 12px;
+    width: 90%;
+    float: left;
+  }
