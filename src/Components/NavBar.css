@@ -4,13 +4,16 @@
 .home, .browser, .course-links {
 	text-align: center;
 	display: block;
-	margin: auto 1px;
-	font-size: 1.2rem;
+	margin: auto 2px;
 }
+ .browser, .course-links {
+	margin-right: 8px;
+ }
+
 
 /* override bootstraps default dropdown menu location */
 .icon-dropdown-menu {
-	left: -85px !important;
+	left: -70px !important;
 }
 
 /* override bootstraps default dropdown menu location */
@@ -24,12 +27,13 @@
 	display: inline-flex;
 	background: #272822;
 	border-radius: 30px;
-	padding: 10px;
+	/* padding: 10px; */
 }
 
 .home > a, .browser > a, .course-links > a {
-	color: rgb(180, 173, 173);
+	color: white;
 	text-decoration: none;
+	padding: 1px;
 }
 
 .home > a:hover, .browser > a:hover, .course-links > a:hover {
@@ -40,7 +44,7 @@
 .home > a {
 	color: white !important;
 	font-size: 1.5rem !important;
-	margin: auto 15px;
+	margin: auto 5px;
 }
 
 .redirect {
@@ -51,7 +55,7 @@
 
 
 .nav-icon-wrap:hover {
-	background: #4a4a48;
+	background: #b1b1af;
 	cursor: pointer;
 }
 
@@ -61,13 +65,9 @@
 
 
 .nav-icon-wrap {
-    padding: 5px;
-    background: white;
+    padding: 2px;
+    background: #777776;
     border-radius: 50%;
-}
-
-.nav-icon-wrap:hover {
-	background: #4a4a48;
 }
 
 .dropdown-header {
@@ -83,7 +83,8 @@
 
 .icon-arrow-down {
 	position: absolute;
-	margin-left: 19px;
+    margin-left: 51px;
+    margin-top: -26px;
 	width: 0;
 	height: 0;
 	border-left: 5px solid transparent;

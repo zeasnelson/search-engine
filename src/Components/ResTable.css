@@ -2,15 +2,13 @@
 /* search results */
 /* table stalying */
 
-.results {
-  overflow: hidden;
-}
+
 .res-table {
     text-align: left;
   }
   
   .res-table-h {
-    font-size: 1.5rem;
+    font-size: 20px;
   }
   
   .res-table-r > td {
@@ -33,6 +31,7 @@
   
   .link {
       color: green;
+      font-size: 14px;
   }
   
   .link:hover {
@@ -41,4 +40,5 @@
   
   .description {
       color: black;
+      font-size: 14px;
   }

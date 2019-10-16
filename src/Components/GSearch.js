@@ -53,16 +53,16 @@ export default class GSearch extends React.Component {
     let linkThree = "https://api.myjson.com/bins/lh7ky";
     let search = this.props.value;
     let pageNum = this.state.nextPageIndex;
-    //fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio&cx=008144321938561881807:hxbcfwfhnwv&q=${search}&start=${pageNum}`)
-    let whattosearch;
-    if( this.state.nextPageIndex === 11 )
-      whattosearch = linkTwo;
-      else if( this.state.nextPageIndex === 21 )
-      whattosearch = linkThree;
-      else if( this.state.nextPageIndex === 1 )
-      whattosearch = linkOne;
+    fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio&cx=008144321938561881807:hxbcfwfhnwv&q=${search}&start=${pageNum}`)
+    // let whattosearch;
+    // if( this.state.nextPageIndex === 11 )
+    //   whattosearch = linkTwo;
+    //   else if( this.state.nextPageIndex === 21 )
+    //   whattosearch = linkThree;
+    //   else if( this.state.nextPageIndex === 1 )
+    //   whattosearch = linkOne;
    
-    fetch(whattosearch )
+    // fetch(whattosearch )
     .then(res => res.json())
     .then( res => {
       let results;
@@ -157,7 +157,7 @@ export default class GSearch extends React.Component {
   //Add a download button to the check box
   renderCheckBox(){
     return(
-      <div className='checkbox-outerbox'> 
+      <div className='checkbox-outerbox d-flex justify-contents-left'> 
         <MyCheckbox 
           saveResult = {this.setResultsToSave}
           value = "999999"
@@ -200,7 +200,7 @@ export default class GSearch extends React.Component {
     for( let i = 0; i < this.state.searchResults.length; i++ ){
       let res = this.state.searchResults[i];
       table.push(
-        <div className="col-12 m-2" key={i}>
+        <div className="col-12 mt-5" key={i}>
           <div className="results">
             <div className='res-checkbox'>
               <MyCheckbox 

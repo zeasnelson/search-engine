@@ -38,7 +38,7 @@ export default class NavBar extends React.Component {
     renderBrowserSpecs(){
         return(
             <div className="browser">
-                <Link className="" to="/browserspecs">BrowserSpecs</Link>
+                <Link className="" to="/browserspecs">Browser</Link>
             </div>
         );
     }
@@ -67,16 +67,12 @@ export default class NavBar extends React.Component {
         return(
             <div className="container">
                 <div className="row">
-                    <div className="col-12 d-flex justify-content-center mt-2 mb-2">
-                        {this.renderAboutMeIcon()}
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 d-flex justify-content-center">
+                    <div className="col-12 d-flex justify-content-center mt-2">
                         <div className="nav-links-box">
-                            {this.renderBrowserSpecs()}
                             {this.renderHome()}
+                            {this.renderBrowserSpecs()}
                             {this.renderCourseLinks()}
+                            {this.renderAboutMeIcon()}
                         </div>
                     </div>
                 </div>
