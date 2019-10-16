@@ -89,6 +89,9 @@ function setGeolocation(){
 
 function showPosition(position) {
 
+    if( !document.getElementById("lat") )
+        return;
+
   document.getElementById("lat").innerHTML =  "Geolocation";
 
 

@@ -2,7 +2,6 @@ import React from 'react';
 import './GSearch.css'
 import MyCheckbox from './MyCheckbox';
 import ResTable from './ResTable';
-import VizSensor from 'react-visibility-sensor';
 //import Spinner from 'react-bootstrap/Spinner';
 
 export default class GSearch extends React.Component {
@@ -202,23 +201,24 @@ export default class GSearch extends React.Component {
       let res = this.state.searchResults[i];
       table.push(
         <div className="col-12 m-2" key={i}>
-          <div className='res-checkbox'>
-            <MyCheckbox 
-              title=""
-              value = {i}
-              saveResult = {this.setResultsToSave}
-              checked = {this.state.isChecked[i]}
-            />
-          </div>
-          <div className='res-table-box'>
-            <ResTable 
-              link = {res.link} 
-              title = {res.title} 
-              snippet = {res.snippet}
-            />
-
-          </div>
-      </div>
+          <div className="results">
+            <div className='res-checkbox'>
+              <MyCheckbox 
+                title=""
+                value = {i}
+                saveResult = {this.setResultsToSave}
+                checked = {this.state.isChecked[i]}
+              />
+            </div>
+            <div className='res-table-box'>
+              <ResTable 
+                link = {res.link} 
+                title = {res.title} 
+                snippet = {res.snippet}
+              />
+            </div>
+            </div>
+        </div>
       );
     }
     return table;

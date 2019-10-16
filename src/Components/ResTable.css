@@ -1,6 +1,10 @@
 
 /* search results */
 /* table stalying */
+
+.results {
+  overflow: hidden;
+}
 .res-table {
     text-align: left;
   }
@@ -37,15 +41,4 @@
   
   .description {
       color: black;
-  }
-
-  .res-checkbox {
-    float: left;
-    margin-top: 4px;
-  }
-  
-  .res-table-box {
-    margin-left: 12px;
-    width: 90%;
-    float: left;
   }

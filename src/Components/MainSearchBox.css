@@ -1,56 +1,4 @@
 
-/*Navigation bar*/
-.about-me-icon {
-	width: 50px;
-	height: 50px;
-}
-
-.nav-icon {
-	float: right;
-}
-
-.nav-icon:hover {
-	cursor: pointer;
-}
-
-.nav-icon-wrap {
-    padding: 6px;
-    background: #272822;
-    border-radius: 50%;
-}
-
-.nav-icon-wrap:hover {
-	background: #4a4a48;
-}
-
-.dropdown-header {
-	font-size: 1.2rem;
-}
-
-
-.browser-specs, .course-links, .nav-icon{
-	display: inline-block;
-}
-
-.browser-specs > a:hover, .course-links > a:hover {
-	color: white;
-	text-decoration: underline;
-}
-
-.browser-specs > a, .course-links > a {
-	color: #babab8;
-}
-
-.browser-specs, .course-links {
-	height: 100%;
-	padding-top: 12px;
-}
-
-.redirect {
-	width: 10px;
-	height: 10px;
-	float: right;
-}
 
 /* Search box */
 
@@ -66,13 +14,34 @@
 
 
 .search-bar{
-	width: 100%;
+  width: 100%;
+  display: inline-block;
   height: 50px;
   border-radius: 30px;
   padding: 8px;
 	background: #272822;
 	display: inline-flex;
 }
+
+.icons-box {
+  min-width: 106px;
+  /* background: #272822; */
+  height: 44px;
+  border-radius: 12px;
+  padding: 6px 0px;
+  margin-left: 3px;
+}
+
+.icons-box-top {
+  margin-top: 12px;
+  transition: all 700ms;
+}
+
+.icons-box-middle {
+  margin-top: 202px;
+  transition: all 700ms;
+}
+
 
 .search-input{
   color: white;
@@ -83,10 +52,21 @@
 	height: 100%;
 }
 
+.icons-upload-lbl{
+  color: black;
+  position: absolute;
+  margin-top: -16px;
+  margin-left: 28px;
+  font-size: .7rem;
+  /* background: #272822; */
+  border-radius: 8px;
+  padding: 1px;
+}
+
 .search-box {
 	width: 60%;
-	min-width: 300px;
-    margin-bottom: 17px;
+	min-width: 350px;
+  margin-bottom: 17px;
 }
 
 
@@ -102,6 +82,7 @@
 
 .icon-outer-box{
     padding: 2px;
+    margin-left: 1px;
     background: #272822;
     border-radius: 50%;
     display: inline-table;
@@ -110,6 +91,9 @@
 .icon-outer-box:hover{
 	background: #80807d;
 }
+ .icons {
+   padding: 1px;
+ }
 
 
   

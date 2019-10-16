@@ -1,33 +1,68 @@
 
 /*Navigation bar*/
-.home-icon{
-	width: 16px;
-	height: 16px;
+
+.home, .browser, .course-links {
+	text-align: center;
+	display: block;
+	margin: auto 1px;
+	font-size: 1.2rem;
 }
 
-.nav-bar {
-	width: 80%;
-	border-radius: 30px;
-	min-width: 440px;
+/* override bootstraps default dropdown menu location */
+.icon-dropdown-menu {
+	left: -85px !important;
+}
+
+/* override bootstraps default dropdown menu location */
+.course-links-dropdown {
+	left: -15px !important;
+    top: 17px !important;
+}
+
+
+.nav-links-box {
+	display: inline-flex;
 	background: #272822;
+	border-radius: 30px;
+	padding: 10px;
 }
 
-.about-me-icon {
-	width: 50px;
-	height: 50px;
+.home > a, .browser > a, .course-links > a {
+	color: rgb(180, 173, 173);
+	text-decoration: none;
 }
 
-.nav-icon {
+.home > a:hover, .browser > a:hover, .course-links > a:hover {
+	color: white;
+}
+
+
+.home > a {
+	color: white !important;
+	font-size: 1.5rem !important;
+	margin: auto 15px;
+}
+
+.redirect {
+	width: 10px;
+	height: 10px;
 	float: right;
+}
+
+
+.nav-icon-wrap:hover {
+	background: #4a4a48;
+	cursor: pointer;
 }
 
 .nav-icon:hover {
 	cursor: pointer;
 }
 
+
 .nav-icon-wrap {
-    padding: 6px;
-    background: #272822;
+    padding: 5px;
+    background: white;
     border-radius: 50%;
 }
 
@@ -39,31 +74,20 @@
 	font-size: 1.2rem;
 }
 
-.home, .browser-specs {
-	color: #babab8;
+
+
+.about-me-icon {
+	width: 50px;
+	height: 50px;
 }
 
-.browser-specs, .course-links, .nav-icon, .home{
-	display: inline-block;
-}
+.icon-arrow-down {
+	position: absolute;
+	margin-left: 19px;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #212529;
 
-.browser-specs > a:hover, .course-links > a:hover, .home:hover, .browser-specs:hover {
-	color: white;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-.browser-specs > a, .course-links > a {
-	color: #babab8;
-}
-
-.browser-specs, .course-links {
-	height: 100%;
-	padding-top: 12px;
-}
-
-.redirect {
-	width: 10px;
-	height: 10px;
-	float: right;
-}
+  }

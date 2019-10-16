@@ -10,9 +10,9 @@ export default class NavBar extends React.Component {
 
     renderCourseLinks(){
         return(
-            <div className="course-links dropdown">
-                <a className="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Course Links</a>
-                <div className="dropdown-menu">
+            <div className="course-links dropdown ">
+                <a className="dropdown-toggle" href="#" data-toggle="dropdown">Course Links</a>
+                <div className="dropdown-menu course-links-dropdown">
                     <a className="dropdown-item" href="https://www.zybooks.com/" target="_blank" rel="noopener noreferrer">Zybooks {this.renderRedirectIcon()}</a>
                     <a className="dropdown-item" href="https://Tophat.com" target="_blank" rel="noopener noreferrer">TopHat {this.renderRedirectIcon()} </a>
                     <a className="dropdown-item" href="https://drive.google.com/drive/u/1/folders/1AsHhIFfQ3yNE_m2z4wswRfKh77K0UH9w" target="_blank" rel="noopener noreferrer">Google Drive {this.renderRedirectIcon()}</a>
@@ -28,8 +28,8 @@ export default class NavBar extends React.Component {
 
     renderHome(){
         return(
-            <div className="browser-specs home" >
-                <Link to='./'> HOME </Link>
+            <div className="home" >
+                <Link to='./'> HOME</Link>
             </div>
         );
     }
@@ -37,8 +37,8 @@ export default class NavBar extends React.Component {
 
     renderBrowserSpecs(){
         return(
-            <div className="browser-specs">
-                <Link className="nav-link" to="/browserspecs">BowserSpecs</Link>
+            <div className="browser">
+                <Link className="" to="/browserspecs">BrowserSpecs</Link>
             </div>
         );
     }
@@ -46,9 +46,10 @@ export default class NavBar extends React.Component {
 
     renderAboutMeIcon(){
         return(
-            <div className="dropdown-menu-right nav-icon" >
+            <div className="dropdown-menu-right nav-icon " >
                 <div className="nav-icon-wrap" data-toggle="dropdown">
                     <img src={aboutme} className="about-me-icon rounded-circle" alt=""></img>    
+                    <div className="icon-arrow-down"></div>
                 </div>
                 <div className="dropdown-menu icon-dropdown-menu">
                         <h6 className="dropdown-header">Developer</h6>
@@ -64,17 +65,22 @@ export default class NavBar extends React.Component {
     }
     render(){
         return(
-
-                <div className="container nav-bar mt-2">
-                    <div className="row m-auto">
-                        <div className="col-sm-12">
-                            {this.renderHome()}
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-center mt-2 mb-2">
+                        {this.renderAboutMeIcon()}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-center">
+                        <div className="nav-links-box">
                             {this.renderBrowserSpecs()}
+                            {this.renderHome()}
                             {this.renderCourseLinks()}
-                            {this.renderAboutMeIcon()}
                         </div>
                     </div>
                 </div>
+            </div>
               
         );
     }
