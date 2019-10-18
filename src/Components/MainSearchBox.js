@@ -1,10 +1,13 @@
 import React from 'react';
 import glogo from '../assets/images/glogo.png';
-import csv from '../assets/images/csv.png';
-import xml from '../assets/images/xml.png';
-import json from '../assets/images/json.png';
+// import csv from '../assets/images/csv.png';
+// import xml from '../assets/images/xml.png';
+// import json from '../assets/images/json.png';
+import upload from '../assets/images/upload.png';
 import './MainSearchBox.css'
 import GSearch from './GSearch';
+
+
 
 
 class MainSearchBox extends React.Component{
@@ -50,67 +53,83 @@ class MainSearchBox extends React.Component{
     );
   }
 
-  renderUploadIcons(){
-    let icons = [csv, json, xml];
-    //let components = ['GSearch', 'CSV', 'JSON', 'XML'];
-    let imgs = [];
-  
-    for (const [index, value] of icons.entries()) {
-      imgs.push( <div className='icon-outer-box' key={index}> 
-                    <div className='icon-inner-box' >
-                        {this.renderIcon(value)}
-                    </div>
-                  </div>
-                );
-    }
-    return imgs;
+  renderIcons(value, id){
+    return(
+          <img
+            className = "icons rounded-circle"
+            onClick={ () => {this.search(id)} }
+            src = {value}
+            alt = {"icon"}
+            width = "30"
+            height = "30"
+          />
+                
+    );
+            
   }
+
+  handleChange = (evt) => {
+    if( !evt )
+      return;
+    
+    let res;
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      res = reader.result;
+      console.log(res);
+    }
+    reader.readAsText(evt.target.files[0]);
+  }
+
 
   renderInputBox() {
     return (
-      <>
-        <div className= { this.state.searchPosTop ? "search-bar search-top" : "search-bar search-middle"}>
-          <input
-            ref={this.inputBoxRef}
-            className="search-input"
-            placeholder={"search"}
-            onChange={ (evt) => { this.getInputValue(evt) } }
-            onKeyDown={ (evt) => {this.search(evt.keyCode)} }
-            type="text"
-          />
-            <div className='icon-outer-box'>
-              <div  className='icon-inner-box'>
-                {this.renderIcon(glogo)}
-              </div>
-            </div>
+      <div className= { this.state.searchPosTop ? "search-bar search-top" : "search-bar search-middle"}>
+
+        <div className='icon-outer-box'>
+          <div  className='icon-inner-box'>
+            {this.renderIcons(glogo, 13)}
+          </div>
         </div>
-        <div className= {this.state.searchPosTop ? "icons-box icons-box-top" : "icons-box icons-box-middle"}>
-          <div className="icons-upload-lbl"><b>UPLOAD</b></div>
-          {this.renderUploadIcons(glogo)}
+        <input
+          ref={this.inputBoxRef}
+          className="search-input"
+          placeholder={"search"}
+          onChange={ (evt) => { this.getInputValue(evt) } }
+          onKeyDown={ (evt) => {this.search(evt.keyCode)} }
+          type="text"
+        />
+        <div className="upload-btn-wrapper">
+          <img className="upload-btn" src={upload} width = "30" height = "30" alt="icon"/>
+          <input className="" onChange={(evt) => {this.handleChange(evt)}} type="file" id="input"/>
         </div>
-      </>
+      </div>
     );
   }
    
+
   search(keyCode){
+    if( !keyCode )
+      return;
     
-    if( keyCode && keyCode === 13 ){
+    if( keyCode === 13 && this.inputString){
       this.setSearchBarPos();
       this.setState({searchQuery : this.inputString});
     }
+
   }
 
   render() {
     return (
       <div className='container'>
         <div className="row h-100">
-          <div className="col-sm-12 ">
-            <div className=" d-flex justify-content-center">
-                <div className = "search-box d-flex justify-content-center" >
-                  {this.renderInputBox()}
-                  <div className='checkbox-outerbox'>
+          <div className="col-sm-12">
+            <div className="d-flex justify-content-center">
+              <div className = "search-box" >
+                {this.renderInputBox()}
+                <div className='checkbox-outerbox'>
                 </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>

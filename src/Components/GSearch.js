@@ -2,6 +2,7 @@ import React from 'react';
 import './GSearch.css'
 import MyCheckbox from './MyCheckbox';
 import ResTable from './ResTable';
+import downloadIcon from '../assets/images/downloadicon.png';
 //import Spinner from 'react-bootstrap/Spinner';
 
 export default class GSearch extends React.Component {
@@ -48,13 +49,13 @@ export default class GSearch extends React.Component {
   fetchData(props){
     //let key = 'AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio';
     //let cx = '008144321938561881807:hxbcfwfhnwv'
-    let linkTwo = "https://api.myjson.com/bins/1dxav6";
-    let linkOne = "https://api.myjson.com/bins/p7f7u";
-    let linkThree = "https://api.myjson.com/bins/lh7ky";
+    // let linkTwo = "https://api.myjson.com/bins/1dxav6";
+    // let linkOne = "https://api.myjson.com/bins/p7f7u";
+    // let linkThree = "https://api.myjson.com/bins/lh7ky";
     let search = this.props.value;
     let pageNum = this.state.nextPageIndex;
     fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio&cx=008144321938561881807:hxbcfwfhnwv&q=${search}&start=${pageNum}`)
-    // let whattosearch;
+    //let whattosearch;
     // if( this.state.nextPageIndex === 11 )
     //   whattosearch = linkTwo;
     //   else if( this.state.nextPageIndex === 21 )
@@ -111,6 +112,8 @@ export default class GSearch extends React.Component {
         }
         this.saveIndex = items;
         this.setState({isChecked : checkAll });
+        console.log(this.saveIndex);
+        
       }
     }
   }
@@ -125,6 +128,8 @@ export default class GSearch extends React.Component {
         if( this.state.searchResults.length === this.saveIndex.length ){
           this.setState({isAllChecked : true });
         }
+
+        console.log(this.saveIndex);
     }
     else if( checkbox && !checkbox.target.checked ){
       this.removeItem(checkbox.target.value);
@@ -132,13 +137,15 @@ export default class GSearch extends React.Component {
       newIsChecked[checkbox.target.value] = false;
       this.setState({isAllChecked : false });
       this.setState({isChecked : newIsChecked});
+
+      console.log(this.saveIndex);
     }
   }
 
   removeItem(item){
     let newSaveIndex = this.saveIndex;
     for( let i = 0; i < this.saveIndex.length; i++ ){
-      if( this.saveIndex[i] === item ){
+      if( this.saveIndex[i] == item ){
         newSaveIndex.splice(i, 1);
         this.saveIndex = newSaveIndex;
         
@@ -154,6 +161,80 @@ export default class GSearch extends React.Component {
     
   }
 
+  convertToXML(){
+    if( !this.saveIndex || !this.state.searchResults ){
+      return;
+    }
+
+    let xmlObj = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xmlObj += "<results>\n";
+    for( let i = 0; i < this.saveIndex.length; i++ ){
+      let item = this.state.searchResults[this.saveIndex[i]];
+      xmlObj += '<result>\n'
+        xmlObj += '<title>"'  + item.title.replace(/&/g, '&amp;') + '"</title>\n';
+        xmlObj += '<url>"' + item.link.replace(/&/g, '&amp;') + '"</url>\n';
+        xmlObj += '<description>"' + item.snippet.replace(/&/g, '&amp;') + '"</description>\n';
+      xmlObj += '</result>\n';
+    }
+    xmlObj += '</results>\n';
+    return xmlObj;
+  }
+
+  convertToJSON(){
+    if( !this.saveIndex || !this.state.searchResults ){
+      return;
+    }
+    let jsonObj = [];
+    for(let i = 0; i < this.saveIndex.length; i++ ){
+      let item = this.state.searchResults[this.saveIndex[i]];
+      let itemObj = {
+        title : item.title,
+        url : item.link,
+        discription : item.snippet,
+      }
+      jsonObj.push(itemObj);
+    }
+    return JSON.stringify(jsonObj);
+  }
+
+  convertToCSV(){
+    let csvContent = '';
+
+    for( let i = 0; i < this.saveIndex.length; i++ ){
+      let item = this.state.searchResults[this.saveIndex[i]];
+      csvContent += '"' + item.title + '"' + ',' + '"' + item.link + '"' + ',' + '"' + item.snippet + '"' + '\n';
+    }
+    return csvContent;
+  }
+
+  downloadFile(id){
+    if( this.saveIndex.length > 0 ){
+      let links;
+      if( id === "xml"){
+        links = this.convertToXML();
+      }
+      else if( id === "json" ){
+        links = this.convertToJSON();
+      }
+      else if( id === "csv" ){
+        links = this.convertToCSV();
+      }
+      else{
+        return;
+      }
+
+      let element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(links));
+      element.setAttribute('download', `links.${id}`);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+  
+    
+  }
+
   //Add a download button to the check box
   renderCheckBox(){
     return(
@@ -164,11 +245,12 @@ export default class GSearch extends React.Component {
           title="All"
           checked = {this.state.isAllChecked}
           />
-        <div className="btn-box">
-        <button className="btn" type="button">
-          <span>Download</span>
-        </button>
-        </div>
+            <div className="download-icons">
+              <img src={downloadIcon} className="download-icon" alt = {"icon"} width = "30" height = "30" />
+              <button className="download-btn" onClick={()=>this.downloadFile("json")} type="button"><span>JSON</span></button>
+              <button className="download-btn" onClick={()=>this.downloadFile("xml")} type="button"><span>XML</span></button>
+              <button className="download-btn" onClick={()=>this.downloadFile("csv")} type="button"><span>CSV</span></button>
+            </div>
       </div>
     );
   }
@@ -200,7 +282,7 @@ export default class GSearch extends React.Component {
     for( let i = 0; i < this.state.searchResults.length; i++ ){
       let res = this.state.searchResults[i];
       table.push(
-        <div className="col-12 mt-5" key={i}>
+        <div className="col-12 mt-4" key={i}>
           <div className="results">
             <div className='res-checkbox'>
               <MyCheckbox 

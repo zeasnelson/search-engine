@@ -5,3 +5,44 @@
 .results {
     display: inline-flex;
 }
+
+
+.download-btn {
+    display: block;
+    overflow: hidden;
+    border-width: 0;
+    outline: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    margin-left: 6px;
+	padding: 0;
+	border-radius: 4px;
+	background-color: #535754;
+	color: #ecf0f1;
+	transition: background-color .3s;
+  }
+
+  .download-btn span {
+    display: block;
+    padding: 0px 4px;
+  }
+  
+
+  .checkbox-outerbox {
+    align-items: flex-start;
+  }
+
+  .download-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 33px;
+  }
+  
+  .download-icons  { 
+    display: flex;
+    margin-left: 15px;
+  }
+  
+  .download-btn:hover, .download-btn:focus {
+	background-color: #474947;
+  }
+
