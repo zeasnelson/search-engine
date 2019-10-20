@@ -1,8 +1,5 @@
 import React from 'react';
 import glogo from '../assets/images/glogo.png';
-// import csv from '../assets/images/csv.png';
-// import xml from '../assets/images/xml.png';
-// import json from '../assets/images/json.png';
 import upload from '../assets/images/upload.png';
 import './MainSearchBox.css'
 import GSearch from './GSearch';
@@ -17,45 +14,37 @@ class MainSearchBox extends React.Component{
     this.state = {
       searchPosTop : false,
       googleSearchQuery : '',
-      uploadedData : '',
-      fileName : '',
     }
 
     this.inputString = '';
     this.inputBoxRef = React.createRef();
   }
 
+  //this methos will be removed on the React v17, thus the reason for UNSAFE_
   UNSAFE_componentWillReceiveProps(props){
-    this.setState({searchPosTop : false});
-    this.setState({googleSearchQuery : ''});
+    this.setState({
+      googleSearchQuery : '',
+      uploadedData : '',
+      fileName : '',
+      searchPosTop : false,
+    });
     this.inputBoxRef.current.value = '';
   }
 
+  //set the position of the status bar
   setSearchBarPos(){
     this.setState( {searchPosTop : true} );
   }
 
-
+  //read the value from the search box
   getInputValue(evt){
       let inputBox = this.inputBoxRef.current.value;
       this.inputString = inputBox;
   
   }
 
-  renderIcon(value){
-    return(
-      <img
-        className = "icons rounded-circle"
-        onClick={ () => {this.search(13)} }  //13 is the enter key code
-        src = {value}
-        alt = {"icon"}
-        width = "30"
-        height = "30"
-      />
-    );
-  }
-
-  renderIcons(value, id){
+  //render an image
+  renderIcon(value, id){
     return(
           <img
             className = "icons rounded-circle"
@@ -70,10 +59,10 @@ class MainSearchBox extends React.Component{
             
   }
 
+  //method store and pass uploaded data 
   handleChange = (evt) => {
     if( !evt )
       return;
-    
     let res;
     let reader = new FileReader();
     let fileName = evt.target.files[0].name;
@@ -81,21 +70,21 @@ class MainSearchBox extends React.Component{
     reader.onload = (e) => {
       res = reader.result;
       this.setState({
-          googleSearchQuery : '',
           fileName : fileName,
-          uploadedData : res
+          uploadedData : res,
         });
+        this.setSearchBarPos();
     }
   }
 
-
+  //render the input box to search on google
   renderInputBox() {
     return (
       <div className= { this.state.searchPosTop ? "search-bar search-top" : "search-bar search-middle"}>
 
         <div className='icon-outer-box'>
           <div  className='icon-inner-box'>
-            {this.renderIcons(glogo, 13)}
+            {this.renderIcon(glogo, 13)}
           </div>
         </div>
         <input
@@ -115,17 +104,21 @@ class MainSearchBox extends React.Component{
   }
    
 
+  //to save the search when the enter key is pressed on the google icon is clicked
   search(keyCode){
     if( !keyCode )
       return;
     
     if( keyCode === 13 && this.inputString){
       this.setSearchBarPos();
-      this.setState({googleSearchQuery : this.inputString});
+      this.setState({
+        googleSearchQuery : this.inputString,
+      });
     }
 
   }
 
+  //render the searchbox
   render() {
     return (
       <div className='container'>
