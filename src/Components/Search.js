@@ -1,5 +1,5 @@
 import React from 'react';
-import './GSearch.css'
+import './Search.css'
 import MyCheckbox from './MyCheckbox';
 import ResTable from './ResTable';
 import downloadIcon from '../assets/images/downloadicon.png';
@@ -15,7 +15,6 @@ export default class GSearch extends React.Component {
       nextPageBtn : null,   //button to request next page from google
       isChecked: new Array(500).fill(false), //there is a better way, hope no one uploads more than 500 links
       isAllChecked : false,  //to check/uncheck all button
-      nextPageBtn : null,
     };
     this.saveIndex = [];
   }
@@ -29,7 +28,6 @@ export default class GSearch extends React.Component {
           searchResults  : null,
           isAllChecked : false,
           isChecked : Array(100).fill(false),
-          nextPageBtn : fetch,
         }
         ,() => this.fetchData());
   }
@@ -91,23 +89,9 @@ export default class GSearch extends React.Component {
   //make the API call
   //get results from Google
   fetchData(props){
-    //let key = 'AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio';
-    //let cx = '008144321938561881807:hxbcfwfhnwv'
-    let linkTwo = "https://api.myjson.com/bins/1dxav6";
-    let linkOne = "https://api.myjson.com/bins/p7f7u";
-    let linkThree = "https://api.myjson.com/bins/lh7ky";
     let search = this.props.googleSearchQuery;
     let pageNum = this.state.nextPageIndex;
-    //fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio&cx=008144321938561881807:hxbcfwfhnwv&q=${search}&start=${pageNum}`)
-    let whattosearch;
-    if( this.state.nextPageIndex === 11 )
-      whattosearch = linkTwo;
-      else if( this.state.nextPageIndex === 21 )
-      whattosearch = linkThree;
-      else if( this.state.nextPageIndex === 1 )
-      whattosearch = linkOne;
-   
-    fetch(whattosearch )
+    fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio&cx=008144321938561881807:hxbcfwfhnwv&q=${search}&start=${pageNum}`)
     .then(res => res.json())
     .then( res => {
       let results;

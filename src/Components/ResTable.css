@@ -21,21 +21,21 @@
   }
   
   .header:hover {
-      color: blue;
-      text-decoration: none;
+    color: rgb(30, 30, 252);
+    text-decoration: none;
   }
   
   .header{
-      color: blue;
+    color: rgb(30, 30, 252);
   }
   
   .link {
-      color: green;
+      color: rgb(29, 77, 29);
       font-size: 14px;
   }
   
   .link:hover {
-      color: green;
+    color: rgb(49, 110, 49);
   }
   
   .description {

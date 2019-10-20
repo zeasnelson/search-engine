@@ -2,7 +2,7 @@ import React from 'react';
 import glogo from '../assets/images/glogo.png';
 import upload from '../assets/images/upload.png';
 import './MainSearchBox.css'
-import GSearch from './GSearch';
+import Search from './Search';
 
 
 
@@ -133,7 +133,7 @@ class MainSearchBox extends React.Component{
             </div>
           </div>
         </div>
-        <GSearch 
+        <Search 
           googleSearchQuery={this.state.googleSearchQuery} pageIndex={1}
           uploadedData = {this.state.uploadedData}
           fileName = {this.state.fileName}
