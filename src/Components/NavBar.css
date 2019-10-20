@@ -30,14 +30,15 @@
 	/* padding: 10px; */
 }
 
-.home > a, .browser > a, .course-links > a {
+.home > a, .browser > a, .course-links > div {
 	color: white;
 	text-decoration: none;
 	padding: 1px;
 }
 
-.home > a:hover, .browser > a:hover, .course-links > a:hover {
+.home:hover, .browser:hover, .course-links:hover {
 	color: white;
+	cursor: pointer;
 }
 
 

@@ -20,27 +20,33 @@ export default class GSearch extends React.Component {
   }
   
 
-  //First fetch on component load
-  //Method called only once at component creation
-  componentDidMount(props) {
-    if( this.state.searchResults )
-      this.fetchData(this.props);
-  }
+  // //First fetch on component load
+  // //Method called only once at component creation
+  // componentDidMount(props) {
+  //   if( this.state.searchResults ){
+  //     this.fetchData(this.props);
+  //     console.log("componentDidMount");
+  //   }
+  // }
 
     //Used to re render the results component after a new fetch call to the google API
   componentDidUpdate(prevProps, prevState) {
     //re fetch data if a new search query is received
-    if (this.props.value !== prevProps.value) {
+    if (this.props.googleSearchQuery !== prevProps.googleSearchQuery) {
       this.setState({nextPageIndex : 1});
       this.setState({searchResults : null});
       this.setState({isAllChecked : false});
       this.setState({isChecked :  Array(100).fill(false)});
       this.saveIndex = [];
-      this.setState({searchQuery : this.props.value}, () => this.fetchData() );
+      this.setState({searchQuery : this.props.googleSearchQuery}, () => this.fetchData() );
+    }
+    else if(this.props.uploadedData !== prevProps.uploadedData){
+      this.parseUploadedData(this.props.fileName, this.props.uploadedData );
     }
     //re fetch data if the next page is requested
     else if(this.state.nextPageIndex !== prevState.nextPageIndex){
-      this.fetchData()   
+      if( this.state.searchResults )
+        this.fetchData()   
     }
   }
 
@@ -52,7 +58,7 @@ export default class GSearch extends React.Component {
     // let linkTwo = "https://api.myjson.com/bins/1dxav6";
     // let linkOne = "https://api.myjson.com/bins/p7f7u";
     // let linkThree = "https://api.myjson.com/bins/lh7ky";
-    let search = this.props.value;
+    let search = this.props.googleSearchQuery;
     let pageNum = this.state.nextPageIndex;
     fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDh2IgwS9Z2ALhZycon6wv0iyFFn2ZlDio&cx=008144321938561881807:hxbcfwfhnwv&q=${search}&start=${pageNum}`)
     //let whattosearch;
@@ -80,6 +86,85 @@ export default class GSearch extends React.Component {
           this.setResults()
         }
         )
+    });
+  }
+
+  getFileName(fileName){
+    let index = fileName.lastIndexOf('.');
+    let parsedFileName = fileName.substring(index+1);
+    return parsedFileName;
+  }
+
+  convertCSVtoJSON(uploadedData){
+    let lines = uploadedData.split(/"\n"/);
+    let json = [];
+    for( let i = 0; i < lines.length; i++ ){
+      let headers = lines[i].split(/","/);
+
+      let jsonObj = {
+        title : headers[0],
+        link : headers[1],
+        snippet : headers[2],
+      }
+      json.push(jsonObj);
+    }
+    let parsedJson = JSON.stringify(json);
+    return parsedJson;
+  }
+
+  convertXMLtoJson(uploadedData){
+    console.log("parsing XML");
+    let json = [];
+    let parser = new DOMParser();
+    let xmlData = parser.parseFromString(uploadedData, "text/xml");
+    let length = xmlData.getElementsByTagName("result").length;
+    for( let i = 0; i < length; i++ ){
+      let obj = {
+        title : xmlData.getElementsByTagName("title")[i].childNodes[0].nodeValue,
+        link  : xmlData.getElementsByTagName("url")[i].childNodes[0].nodeValue,
+        snippet : xmlData.getElementsByTagName("description")[i].childNodes[0].nodeValue,
+      }
+      json.push(obj); 
+    }
+    return JSON.stringify(json);
+  }
+
+  reformatJson(uploadedData){
+    let reformattedJson = [];
+    let uploadedJson = JSON.parse(uploadedData);
+    for( let i = 0; i < uploadedJson.length; i++ ){
+      let item = uploadedJson[i];
+      let itemObj = {
+        title : item.title,
+        link : item.url,
+        snippet : item.description,
+      }
+      reformattedJson.push(itemObj);
+    }
+    return JSON.stringify(reformattedJson);
+  }
+
+  parseUploadedData(fileName, uploadedData){
+    let parsedFileName = this.getFileName(fileName);
+    let data, json;
+    if( parsedFileName === "csv" ){
+      data = this.convertCSVtoJSON(uploadedData);
+      json = JSON.parse(data);
+    }
+    else if( parsedFileName === "xml" ){
+      data = this.convertXMLtoJson(uploadedData);
+      json = JSON.parse(data);
+    }
+    else if (parsedFileName === "json" ){
+      data = this.reformatJson(uploadedData);
+      json = JSON.parse(data);
+      
+      console.log(json[0].title);
+      
+    }
+    this.setState({
+      searchResults : json,
+      searchQuery : 'mock',
     });
   }
 
@@ -145,7 +230,7 @@ export default class GSearch extends React.Component {
   removeItem(item){
     let newSaveIndex = this.saveIndex;
     for( let i = 0; i < this.saveIndex.length; i++ ){
-      if( this.saveIndex[i] == item ){
+      if( this.saveIndex[i] === Number(item) ){
         newSaveIndex.splice(i, 1);
         this.saveIndex = newSaveIndex;
         
@@ -190,7 +275,7 @@ export default class GSearch extends React.Component {
       let itemObj = {
         title : item.title,
         url : item.link,
-        discription : item.snippet,
+        description : item.snippet,
       }
       jsonObj.push(itemObj);
     }
@@ -202,7 +287,7 @@ export default class GSearch extends React.Component {
 
     for( let i = 0; i < this.saveIndex.length; i++ ){
       let item = this.state.searchResults[this.saveIndex[i]];
-      csvContent += '"' + item.title + '"' + ',' + '"' + item.link + '"' + ',' + '"' + item.snippet + '"' + '\n';
+      csvContent +=  `"${item.title}","${item.link}","${item.snippet}"\n`;
     }
     return csvContent;
   }
@@ -221,7 +306,7 @@ export default class GSearch extends React.Component {
       }
       else{
         return;
-      }
+  }
 
       let element = document.createElement('a');
       element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(links));
@@ -258,7 +343,7 @@ export default class GSearch extends React.Component {
 
   //creates tables from the results received from Google json
   setResults(){
-
+    
     //display loading
     if( !this.state.searchResults  && this.state.searchQuery ){
       return (<div className='col-12 text-center'>loading</div>);

@@ -11,7 +11,7 @@ export default class NavBar extends React.Component {
     renderCourseLinks(){
         return(
             <div className="course-links dropdown ">
-                <a className="dropdown-toggle" href="#" data-toggle="dropdown">Course Links</a>
+                <div className="dropdown-toggle" data-toggle="dropdown">Course Links</div>
                 <div className="dropdown-menu course-links-dropdown">
                     <a className="dropdown-item" href="https://www.zybooks.com/" target="_blank" rel="noopener noreferrer">Zybooks {this.renderRedirectIcon()}</a>
                     <a className="dropdown-item" href="https://Tophat.com" target="_blank" rel="noopener noreferrer">TopHat {this.renderRedirectIcon()} </a>

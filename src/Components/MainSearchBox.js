@@ -16,7 +16,9 @@ class MainSearchBox extends React.Component{
     super(props);
     this.state = {
       searchPosTop : false,
-      searchQuery : '',
+      googleSearchQuery : '',
+      uploadedData : '',
+      fileName : '',
     }
 
     this.inputString = '';
@@ -25,7 +27,7 @@ class MainSearchBox extends React.Component{
 
   UNSAFE_componentWillReceiveProps(props){
     this.setState({searchPosTop : false});
-    this.setState({searchQuery : ''});
+    this.setState({googleSearchQuery : ''});
     this.inputBoxRef.current.value = '';
   }
 
@@ -74,11 +76,16 @@ class MainSearchBox extends React.Component{
     
     let res;
     let reader = new FileReader();
-    reader.onload = function(e) {
-      res = reader.result;
-      console.log(res);
-    }
+    let fileName = evt.target.files[0].name;
     reader.readAsText(evt.target.files[0]);
+    reader.onload = (e) => {
+      res = reader.result;
+      this.setState({
+          googleSearchQuery : '',
+          fileName : fileName,
+          uploadedData : res
+        });
+    }
   }
 
 
@@ -114,7 +121,7 @@ class MainSearchBox extends React.Component{
     
     if( keyCode === 13 && this.inputString){
       this.setSearchBarPos();
-      this.setState({searchQuery : this.inputString});
+      this.setState({googleSearchQuery : this.inputString});
     }
 
   }
@@ -133,7 +140,11 @@ class MainSearchBox extends React.Component{
             </div>
           </div>
         </div>
-        <GSearch value={this.state.searchQuery} pageIndex={1}/>
+        <GSearch 
+          googleSearchQuery={this.state.googleSearchQuery} pageIndex={1}
+          uploadedData = {this.state.uploadedData}
+          fileName = {this.state.fileName}
+          />
       </div>
   );
 
