@@ -49,7 +49,6 @@ export default class NavBar extends React.Component {
             <div className="dropdown-menu-right nav-icon " >
                 <div className="nav-icon-wrap" data-toggle="dropdown">
                     <img src={aboutme} className="about-me-icon rounded-circle" alt=""></img>    
-                    <div className="icon-arrow-down"></div>
                 </div>
                 <div className="dropdown-menu icon-dropdown-menu">
                         <h6 className="dropdown-header">Developer</h6>
@@ -65,15 +64,15 @@ export default class NavBar extends React.Component {
     }
     render(){
         return(
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 d-flex justify-content-center mt-2">
-                        <div className="nav-links-box">
+            <div className="container mt-4">
+                <div className="row nav-row">
+                    <div className="col-12 nav-links-box">
+                        {/* <div className="nav-links-box"> */}
                             {this.renderHome()}
                             {this.renderBrowserSpecs()}
                             {this.renderCourseLinks()}
                             {this.renderAboutMeIcon()}
-                        </div>
+                        {/* </div> */}
                     </div>
                 </div>
             </div>

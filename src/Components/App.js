@@ -8,7 +8,7 @@ class App extends React.Component {
   
   render(){
     return (
-      <div className="container-fluid">
+      <div className="container-fluid p-0">
         <NavBar />
         <Router />
       </div>

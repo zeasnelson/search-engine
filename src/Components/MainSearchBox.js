@@ -74,6 +74,7 @@ class MainSearchBox extends React.Component{
           uploadedData : res,
         });
         this.setSearchBarPos();
+        this.inputBoxRef.current.value = '';
     }
   }
 
@@ -90,7 +91,7 @@ class MainSearchBox extends React.Component{
         <input
           ref={this.inputBoxRef}
           className="search-input"
-          placeholder={"search"}
+          placeholder={"Search on Google"}
           onChange={ (evt) => { this.getInputValue(evt) } }
           onKeyDown={ (evt) => {this.search(evt.keyCode)} }
           type="text"
@@ -113,6 +114,8 @@ class MainSearchBox extends React.Component{
       this.setSearchBarPos();
       this.setState({
         googleSearchQuery : this.inputString,
+        uploadedData : '',
+        fileName : ''
       });
     }
 

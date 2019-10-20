@@ -29,7 +29,11 @@ export default class GSearch extends React.Component {
           isAllChecked : false,
           isChecked : Array(100).fill(false),
         }
-        ,() => this.fetchData());
+        ,() => { 
+          if( fetch ) {
+            this.fetchData()
+          }
+        });
   }
 
     //Used to re render the results component after a new fetch call to the google API
@@ -210,9 +214,9 @@ export default class GSearch extends React.Component {
       let headers = lines[i].split(/","/);
 
       let jsonObj = {
-        title : headers[0],
-        link : headers[1],
-        snippet : headers[2],
+        title : headers[0].replace(/"/, ""),
+        link : headers[1].replace(/"/, ""),
+        snippet : headers[2].replace(/"/, ""),
       }
       json.push(jsonObj);
     }
