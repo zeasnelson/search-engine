@@ -1,17 +1,19 @@
 import React from 'react';
 import './App.css';
 import NavBar from './NavBar';
-import Router from './Router';
-
-
+import {Route } from 'react-router-dom'
+import BrowserSpecs from './BrowserSpecs'
+import MainSearchBox from './MainSearchBox'
 class App extends React.Component {
   
   render(){
     return (
-      <div className="container-fluid p-0">
-        <NavBar />
-        <Router />
-      </div>
+      
+        <div className="container-fluid p-0">
+            <NavBar />
+              <Route exact path='/' component={MainSearchBox}/>
+              <Route path='/browserspecs' component={BrowserSpecs}/>
+        </div>
     );
   }
   

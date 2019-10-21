@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Components/App'
-import { BrowserRouter } from 'react-router-dom'
 import './index.css';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import { Router} from 'react-router-dom'
+let CreateHashHistory = require("history").createBrowserHistory;
+
+const hashHistory = CreateHashHistory({basename: process.env.PUBLIC_URL})
 
 class MainWindow extends React.Component{
   render() {
     return (
-      <BrowserRouter>
-            
-            <App />
-      </BrowserRouter>
+      <Router history={hashHistory} path={'search-engine/'}>
+        <App />
+      </Router>
     );
   }
 

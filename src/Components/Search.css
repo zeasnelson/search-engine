@@ -39,10 +39,23 @@
   
   .download-icons  { 
     display: flex;
-    margin-left: 15px;
+    margin-left: 50px;
   }
   
   .download-btn:hover, .download-btn:focus {
 	background-color: #474947;
   }
 
+  .downloadBadge {
+    position: absolute;
+    top: 3px;
+    left: 69px;
+    color: #ffffff;
+    background: black;
+    width: 28px;
+    height: 27px;
+    text-align: center;
+    border-radius: 24px;
+    font-weight: bolder;
+    font-size: 1.1rem;
+  }

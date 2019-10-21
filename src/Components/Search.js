@@ -20,6 +20,7 @@ export default class GSearch extends React.Component {
       isAllChecked : false,  //to check/uncheck all button
     };
     this.saveIndex = [];
+    this.downloadBadgeHref = React.createRef();
   }
 
   resetState(fetch){
@@ -83,6 +84,7 @@ export default class GSearch extends React.Component {
       searchResults : json,
       searchQuery : 'mock',
     });
+    
   }
 
   //To request the next page from Google
@@ -353,6 +355,11 @@ export default class GSearch extends React.Component {
 
   //Add a download button to the check box
   renderCheckBox(){
+    let items;
+    if( this.saveIndex ){
+      items = this.saveIndex.length;
+    }
+
     return(
       <div className='checkbox-outerbox d-flex justify-contents-left'> 
         <MyCheckbox 
@@ -366,6 +373,7 @@ export default class GSearch extends React.Component {
               <button className="download-btn" onClick={()=>this.downloadFile("json")} type="button"><span>JSON</span></button>
               <button className="download-btn" onClick={()=>this.downloadFile("xml")} type="button"><span>XML</span></button>
               <button className="download-btn" onClick={()=>this.downloadFile("csv")} type="button"><span>CSV</span></button>
+              <div ref={this.downloadBadgeHref} className="downloadBadge">{items}</div>
             </div>
       </div>
     );
