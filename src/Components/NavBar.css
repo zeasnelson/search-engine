@@ -4,7 +4,7 @@
 .home, .browser, .course-links {
 	text-align: center;
 	display: inline-block;
-    margin: 6px 2px;
+    margin: 4px 2px;
 }
  .browser, .course-links {
 	margin-right: 8px;

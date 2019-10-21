@@ -64,7 +64,7 @@ export default class NavBar extends React.Component {
     }
     render(){
         return(
-            <div className="container mt-4">
+            <div className="container mt-2">
                 <div className="row nav-row">
                     <div className="col-12 nav-links-box">
                         {/* <div className="nav-links-box"> */}

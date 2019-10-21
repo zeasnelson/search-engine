@@ -1,0 +1,49 @@
+
+.stack-box {
+    margin: auto;
+    display: block;
+}
+
+.stack-icons-box {
+    display: flex;
+}
+
+.image-box > img, .image-box {
+    width: 40px;
+    height: 40px;
+}
+
+.image-box {
+    background: #d6d6d6;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 4px 11px;
+}
+
+.stack-title {
+    font-size: 1rem;
+}
+
+.bootstrap-txt, .react-txt, .js-txt, .html-txt, .css-txt {
+    text-align: center;
+}
+
+.bootstrap-txt {
+    color: #6935b4;
+}
+
+.react-txt {
+    color: #17c5f0;
+}
+
+.js-txt {
+    color: #e9ca32;
+}
+
+.html-txt {
+    color: #e44d26;
+}
+
+.css-txt {
+    color: #0277bd;
+}

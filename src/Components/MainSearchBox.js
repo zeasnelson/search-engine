@@ -14,6 +14,7 @@ class MainSearchBox extends React.Component{
     this.state = {
       searchPosTop : false,
       googleSearchQuery : '',
+      renderTechStack : true,
     }
 
     this.inputString = '';
@@ -27,13 +28,17 @@ class MainSearchBox extends React.Component{
       uploadedData : '',
       fileName : '',
       searchPosTop : false,
+      renderTechStack : true,
     });
     this.inputBoxRef.current.value = '';
   }
 
   //set the position of the status bar
   setSearchBarPos(){
-    this.setState( {searchPosTop : true} );
+    this.setState( {
+      searchPosTop : true,
+      renderTechStack : false,
+    } );
   }
 
   //read the value from the search box
@@ -70,6 +75,7 @@ class MainSearchBox extends React.Component{
     reader.onload = (e) => {
       res = reader.result;
       this.setState({
+          renderTechStack : false,
           fileName : fileName,
           uploadedData : res,
         });
@@ -140,6 +146,7 @@ class MainSearchBox extends React.Component{
           googleSearchQuery={this.state.googleSearchQuery} pageIndex={1}
           uploadedData = {this.state.uploadedData}
           fileName = {this.state.fileName}
+          renderTechStack = {this.state.renderTechStack}
           />
       </div>
   );

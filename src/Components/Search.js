@@ -3,7 +3,10 @@ import './Search.css'
 import MyCheckbox from './MyCheckbox';
 import ResTable from './ResTable';
 import downloadIcon from '../assets/images/downloadicon.png';
-//import Spinner from 'react-bootstrap/Spinner';
+import TechnologyStack from './TechnologyStack';
+
+
+
 
 export default class GSearch extends React.Component {
   constructor(props){
@@ -23,7 +26,7 @@ export default class GSearch extends React.Component {
     this.saveIndex = [];
       this.setState({
           searchQuery : this.props.googleSearchQuery,
-          nextPageBtn : true,
+          nextPageBtn : fetch ? true : false,
           nextPageIndex : 1,
           searchResults  : null,
           isAllChecked : false,
@@ -375,7 +378,10 @@ export default class GSearch extends React.Component {
 
   //creates tables from the results received from Google json
   setResults(){
-    
+
+    if( this.props.renderTechStack ){
+      return (<div className='col-12 mt-4 d-flex justify-contents-center'><TechnologyStack /></div> );
+    }
     //display loading
     if( !this.state.searchResults  && this.state.searchQuery ){
       return (<div className='col-12 text-center'>loading</div>);
@@ -422,8 +428,8 @@ export default class GSearch extends React.Component {
 
   
   renderSensor(){
-    if( !this.state.nextPageBtn ){
-      return;
+    if( !this.state.nextPageBtn && this.state.searchResults ){
+      return <div className="col-12 text-center mt-3">End Of File</div>;
     }
     if( this.state.searchResults ){
       return (
