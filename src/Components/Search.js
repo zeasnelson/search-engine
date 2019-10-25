@@ -16,7 +16,7 @@ export default class GSearch extends React.Component {
       searchQuery: null,
       nextPageIndex : 1,
       nextPageBtn : null,   //button to request next page from google
-      isChecked: new Array(500).fill(false), //there is a better way, hope no one uploads more than 500 links
+      isChecked: new Array(100).fill(false), //Googel search API does not allow more than 100 results
       isAllChecked : false,  //to check/uncheck all button
     };
     this.saveIndex = [];
@@ -90,8 +90,10 @@ export default class GSearch extends React.Component {
   //To request the next page from Google
   setNextPage = () => {
     let nextPageIndex = this.state.nextPageIndex;
-    nextPageIndex += 10;
-    this.setState( {nextPageIndex : nextPageIndex});
+    if( nextPageIndex !== 91 ){ //google does not allow to search for mare than 100 results
+      nextPageIndex += 10;
+      this.setState( {nextPageIndex : nextPageIndex});
+    }
     
   }
 
@@ -387,13 +389,17 @@ export default class GSearch extends React.Component {
   //creates tables from the results received from Google json
   setResults(){
 
+    //render the technology stack if at the home page if nothig has been uploaded or searched on google
     if( this.props.renderTechStack ){
-      return (<div className='col-12 mt-4 d-flex justify-contents-center'><TechnologyStack /></div> );
+      return (<TechnologyStack /> );
     }
+
     //display loading
     if( !this.state.searchResults  && this.state.searchQuery ){
       return (<div className='col-12 text-center'>loading</div>);
     }
+
+    //don't render anythig if nothing has been searched or uploaded
     if( !this.state.searchResults  || !this.state.searchQuery){
       return null;
     }
@@ -401,7 +407,7 @@ export default class GSearch extends React.Component {
     let table = [];
     //push check box with the button to be rendered
     table.push(
-      <div className='col-12' key={this.state.searchResults.length + 999}>
+      <div className='col-12 mt-3' key={this.state.searchResults.length + 999}>
         {this.renderCheckBox()}
       </div>
     );
@@ -440,13 +446,15 @@ export default class GSearch extends React.Component {
       return <div className="col-12 text-center mt-3">End Of File</div>;
     }
     if( this.state.searchResults ){
-      return (
-        <div className='col-12 d-flex justify-content-center m-2'>  
-          <button onClick={this.setNextPage}>
-            load more results
-          </button>
-        </div>
-        );
+      {
+        return (
+          <div className='col-12 d-flex justify-content-center m-2'>  
+            <button onClick={this.setNextPage}>
+              {"load next page"}
+            </button>
+          </div>
+          );
+        }
       }
   }
 

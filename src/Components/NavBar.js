@@ -58,6 +58,8 @@ export default class NavBar extends React.Component {
                         <h6 className="dropdown-header">Contact Me</h6>
                         <div className="dropdown-item" >zeasnelson@gmail.com</div>
                         <a className="dropdown-item" href="https://www.linkedin.com/in/zeasnelson/">LinkedIn</a>
+                        <div className="dropdown-divider"></div>
+                        <a className="dropdown-item" href="https://github.com/zeasnelson/google-search-api">Source Code</a>
                 </div>
             </div>
         );

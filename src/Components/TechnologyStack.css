@@ -15,35 +15,22 @@
 
 .image-box {
     background: #d6d6d6;
-    margin: 10px;
+    margin: 4px 20px;
     border-radius: 10px;
-    box-shadow: 3px 4px 11px;
+    box-shadow: 3px 3px 7px;
 }
 
 .stack-title {
-    font-size: 1rem;
+    margin-left: 15px;
+    font-size: .9rem;
+    color: #3b3b3b;
 }
 
 .bootstrap-txt, .react-txt, .js-txt, .html-txt, .css-txt {
     text-align: center;
 }
 
-.bootstrap-txt {
-    color: #6935b4;
-}
-
-.react-txt {
-    color: #17c5f0;
-}
-
-.js-txt {
-    color: #e9ca32;
-}
-
-.html-txt {
-    color: #e44d26;
-}
-
-.css-txt {
-    color: #0277bd;
+.bootstrap-txt, .react-txt, .js-txt, .html-txt, .css-txt {
+    color: #858585;
+    font-size: .86rem;
 }

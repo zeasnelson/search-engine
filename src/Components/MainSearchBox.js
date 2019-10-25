@@ -136,8 +136,6 @@ class MainSearchBox extends React.Component{
             <div className="d-flex justify-content-center">
               <div className = "search-box" >
                 {this.renderInputBox()}
-                <div className='checkbox-outerbox'>
-                </div>
               </div>
             </div>
           </div>

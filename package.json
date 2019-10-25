@@ -2,7 +2,7 @@
   "name": "search-engine",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zeasnelson.github.io/search-engine",
+  "homepage": "https://zeasnelson.github.io/google-search-api",
   "dependencies": {
     "gh-pages": "^2.1.1",
     "react": "^16.10.2",
