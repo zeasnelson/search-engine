@@ -92,7 +92,10 @@ export default class GSearch extends React.Component {
     let nextPageIndex = this.state.nextPageIndex;
     if( nextPageIndex !== 91 ){ //google does not allow to search for mare than 100 results
       nextPageIndex += 10;
-      this.setState( {nextPageIndex : nextPageIndex});
+      this.setState( {
+        isAllChecked : false,
+        nextPageIndex : nextPageIndex
+      });
     }
     
   }
