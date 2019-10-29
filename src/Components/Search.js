@@ -6,8 +6,6 @@ import downloadIcon from '../assets/images/downloadicon.png';
 import TechnologyStack from './TechnologyStack';
 
 
-
-
 export default class GSearch extends React.Component {
   constructor(props){
     super(props);
@@ -41,7 +39,7 @@ export default class GSearch extends React.Component {
   }
 
     //Used to re render the results component after a new fetch call to the google API
-  componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState) {
     //re fetch data if a new search query is received
     if (this.props.googleSearchQuery !== prevProps.googleSearchQuery) {
       this.resetState(true);
@@ -397,9 +395,9 @@ export default class GSearch extends React.Component {
       return (<TechnologyStack /> );
     }
 
-    //display loading
+    //display loading while fetching results from Google
     if( !this.state.searchResults  && this.state.searchQuery ){
-      return (<div className='col-12 text-center'>loading</div>);
+      return (<div className='col-12 text-center mt-5'>loading</div>);
     }
 
     //don't render anythig if nothing has been searched or uploaded
@@ -444,20 +442,18 @@ export default class GSearch extends React.Component {
   } 
 
   
-  renderSensor(){
+  renderNextPgBtn(){
     if( !this.state.nextPageBtn && this.state.searchResults ){
       return <div className="col-12 text-center mt-3">End Of File</div>;
     }
     if( this.state.searchResults ){
-      {
-        return (
+      return (
           <div className='col-12 d-flex justify-content-center m-2'>  
             <button onClick={this.setNextPage}>
               {"load next page"}
             </button>
           </div>
           );
-        }
       }
   }
 
@@ -466,7 +462,7 @@ export default class GSearch extends React.Component {
     return (
       <div className='row'>
         {this.setResults()}
-        {this.renderSensor()}
+        {this.renderNextPgBtn()}
       </div>
     );
   }
