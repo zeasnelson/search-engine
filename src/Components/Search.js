@@ -64,17 +64,17 @@ export default class GSearch extends React.Component {
     if( !fileName || !uploadedData ){
       return;
     }
-    let parsedFileName = this.getFileName(fileName);
+    // let parsedFileName = this.getFileName(fileName);
     let data, json;
-    if( parsedFileName === "csv" ){
+    if( fileName === "csv" ){
       data = this.convertCSVtoJSON(uploadedData);
       json = JSON.parse(data);
     }
-    else if( parsedFileName === "xml" ){
+    else if( fileName === "xml" ){
       data = this.convertXMLtoJson(uploadedData);
       json = JSON.parse(data);
     }
-    else if (parsedFileName === "json" ){
+    else if ( fileName === "json" ){
       data = this.reformatJson(uploadedData);
       json = JSON.parse(data);
     }
@@ -200,16 +200,6 @@ export default class GSearch extends React.Component {
     }
   }
 
-  //extract the file name from a string
-  getFileName(fileName){
-    if( !fileName ){
-      return;
-    }
-    let index = fileName.lastIndexOf('.');
-    let parsedFileName = fileName.substring(index+1);
-    return parsedFileName;
-  }
-
   
   //to convert uploaded CSV file into JSON
   convertCSVtoJSON(uploadedData){
@@ -264,8 +254,9 @@ export default class GSearch extends React.Component {
     }
     let reformattedJson = [];
     let uploadedJson = JSON.parse(uploadedData);
-    for( let i = 0; i < uploadedJson.length; i++ ){
-      let item = uploadedJson[i];
+    
+    for( let i = 0; i < uploadedJson.Result.length; i++ ){
+      let item = uploadedJson.Result[i];
       let itemObj = {
         title : item.title,
         link : item.url,
@@ -311,7 +302,8 @@ export default class GSearch extends React.Component {
       }
       jsonObj.push(itemObj);
     }
-    return JSON.stringify(jsonObj);
+    let str = '{ "Result": ' + JSON.stringify(jsonObj) + '}';
+    return str;
   }
 
 
@@ -406,14 +398,14 @@ export default class GSearch extends React.Component {
     }
 
     let table = [];
-    //push check box with the button to be rendered
+    //push check box with the download button to be rendered
     table.push(
       <div className='col-12 mt-3' key={this.state.searchResults.length + 999}>
         {this.renderCheckBox()}
       </div>
     );
 
-    //push individual tables into the array to be rendered
+    //push individual tables into the array to be rendered from the searchResults json
     for( let i = 0; i < this.state.searchResults.length; i++ ){
       let res = this.state.searchResults[i];
       table.push(
@@ -443,9 +435,11 @@ export default class GSearch extends React.Component {
 
   
   renderNextPgBtn(){
+    //To render "End Of File" when a file was uploaded
     if( !this.state.nextPageBtn && this.state.searchResults ){
       return <div className="col-12 text-center mt-3">End Of File</div>;
     }
+    //To render a button if the user searched on Google
     if( this.state.searchResults ){
       return (
           <div className='col-12 d-flex justify-content-center m-2'>  

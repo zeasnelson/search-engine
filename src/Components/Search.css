@@ -44,7 +44,8 @@
   }
   
   .download-btn:hover, .download-btn:focus {
-	  color: black;
+    color: black;
+    background: #e0e5e8;
   }
 
   .downloadBadge {

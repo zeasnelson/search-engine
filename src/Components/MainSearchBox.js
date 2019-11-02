@@ -15,6 +15,7 @@ class MainSearchBox extends React.Component{
       searchPosTop : false,
       googleSearchQuery : '',
       renderTechStack : true,
+      errorMsg: ""
     }
 
     this.inputString = '';
@@ -64,13 +65,41 @@ class MainSearchBox extends React.Component{
             
   }
 
+  //extract the file name from a string
+  getFileName = (fileName) => {
+    if( !fileName ){
+      return;
+    }
+    let index = fileName.lastIndexOf('.');
+    let parsedFileName = fileName.substring(index+1);
+    return parsedFileName;
+  }
+
+  isJsonXmlCsv(fileName){
+    return ( fileName === 'json' || fileName === 'xml' || fileName === "csv");
+  }
+
   //method store and pass uploaded data 
   handleChange = (evt) => {
-    if( !evt )
+    if( !evt || !evt.target.files[0] )
       return;
     let res;
     let reader = new FileReader();
-    let fileName = evt.target.files[0].name;
+    let fileName = this.getFileName(evt.target.files[0].name);
+    
+    if( !this.isJsonXmlCsv(fileName) ){
+      this.setState({
+        errorMsg: `${fileName} not supported`,
+        fileName : '',
+        uploadedData : null,
+        searchPosTop : false,
+      });
+      return;
+    }
+    else{
+      this.setState({errorMsg : ""});
+    }
+
     reader.readAsText(evt.target.files[0]);
     reader.onload = (e) => {
       res = reader.result;
@@ -111,7 +140,7 @@ class MainSearchBox extends React.Component{
   }
    
 
-  //to save the search when the enter key is pressed on the google icon is clicked
+  //to save the search when the enter key is pressed or the google icon is clicked
   search(keyCode){
     if( !keyCode )
       return;
@@ -121,7 +150,8 @@ class MainSearchBox extends React.Component{
       this.setState({
         googleSearchQuery : this.inputString,
         uploadedData : '',
-        fileName : ''
+        fileName : '',
+        errorMsg : '',
       });
     }
 
@@ -136,6 +166,7 @@ class MainSearchBox extends React.Component{
             <div className="d-flex justify-content-center">
               <div className = "search-box" >
                 {this.renderInputBox()}
+                <div className="text-center text-danger">{this.state.errorMsg}</div>
               </div>
             </div>
           </div>
