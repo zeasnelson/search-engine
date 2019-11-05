@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/google-search-api/static/css/main.5398b131.chunk.css",
-    "main.js": "/google-search-api/static/js/main.455b2e02.chunk.js",
-    "main.js.map": "/google-search-api/static/js/main.455b2e02.chunk.js.map",
+    "main.js": "/google-search-api/static/js/main.c49aa59a.chunk.js",
+    "main.js.map": "/google-search-api/static/js/main.c49aa59a.chunk.js.map",
     "runtime-main.js": "/google-search-api/static/js/runtime-main.880c219d.js",
     "runtime-main.js.map": "/google-search-api/static/js/runtime-main.880c219d.js.map",
     "static/js/2.201be60e.chunk.js": "/google-search-api/static/js/2.201be60e.chunk.js",
     "static/js/2.201be60e.chunk.js.map": "/google-search-api/static/js/2.201be60e.chunk.js.map",
     "index.html": "/google-search-api/index.html",
-    "precache-manifest.e20a081cb5974b8a10b8f1eba71a99f6.js": "/google-search-api/precache-manifest.e20a081cb5974b8a10b8f1eba71a99f6.js",
+    "precache-manifest.e64821db63478bd38342d38ea73c4382.js": "/google-search-api/precache-manifest.e64821db63478bd38342d38ea73c4382.js",
     "service-worker.js": "/google-search-api/service-worker.js",
     "static/css/main.5398b131.chunk.css.map": "/google-search-api/static/css/main.5398b131.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.880c219d.js",
     "static/js/2.201be60e.chunk.js",
     "static/css/main.5398b131.chunk.css",
-    "static/js/main.455b2e02.chunk.js"
+    "static/js/main.c49aa59a.chunk.js"
   ]
 }
