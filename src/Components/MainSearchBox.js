@@ -15,14 +15,14 @@ class MainSearchBox extends React.Component{
       searchPosTop : false,
       googleSearchQuery : '',
       renderTechStack : true,
-      errorMsg: ""
+      errorMsg: "ONLY QCSV FORMAT SUPPORTED!"
     }
 
     this.inputString = '';
     this.inputBoxRef = React.createRef();
   }
 
-  //this methos will be removed on the React v17, thus the reason for UNSAFE_
+  //this methosd will be removed on the React v17, thus the reason for UNSAFE_
   UNSAFE_componentWillReceiveProps(props){
     this.setState({
       googleSearchQuery : '',
@@ -96,8 +96,13 @@ class MainSearchBox extends React.Component{
       });
       return;
     }
+
     else{
-      this.setState({errorMsg : ""});
+      if( fileName === "csv"){
+        this.setState({errorMsg : "ONLY QCSV FORMAT SUPPORTED!"});
+      }
+      else
+        this.setState({errorMsg : ""});
     }
 
     reader.readAsText(evt.target.files[0]);
@@ -111,6 +116,7 @@ class MainSearchBox extends React.Component{
         this.setSearchBarPos();
         this.inputBoxRef.current.value = '';
     }
+    
   }
 
   //render the input box to search on google

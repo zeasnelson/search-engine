@@ -61,7 +61,7 @@ export default class GSearch extends React.Component {
   /*
   * Simply passed the uploaded data based on file extension     */
   parseUploadedData(fileName, uploadedData){
-    if( !fileName || !uploadedData ){
+    if( !fileName && !uploadedData ){
       return;
     }
     // let parsedFileName = this.getFileName(fileName);
@@ -78,6 +78,17 @@ export default class GSearch extends React.Component {
       data = this.reformatJson(uploadedData);
       json = JSON.parse(data);
     }
+
+    if( !json ){
+      let error = `{"Result":[{
+          "title":"Looks like this ${fileName} file is not a valid !",
+          "url":"https://www.google.com/search?q=${fileName} format",
+          "description":"Make  sure it is valid ${fileName}"}
+      ]}`
+      data = this.reformatJson(error);
+      json = JSON.parse(data);
+    }
+   
     this.setState({
       searchResults : json,
       searchQuery : 'mock',
@@ -210,13 +221,14 @@ export default class GSearch extends React.Component {
     let json = [];
     for( let i = 0; i < lines.length; i++ ){
       let headers = lines[i].split(/","/);
-
-      let jsonObj = {
-        title : headers[0].replace(/"/, ""),
-        link : headers[1].replace(/"/, ""),
-        snippet : headers[2].replace(/"/, ""),
+      if( headers.length === 3 ){
+        let jsonObj = {
+          title : headers[0].replace(/"/, ""),
+          link : headers[1].replace(/"/, ""),
+          snippet : headers[2].replace(/"/, ""),
+        }
+        json.push(jsonObj);
       }
-      json.push(jsonObj);
     }
     let parsedJson = JSON.stringify(json);
     return parsedJson;
@@ -232,12 +244,16 @@ export default class GSearch extends React.Component {
     let xmlData = parser.parseFromString(uploadedData, "text/xml");
     let length = xmlData.getElementsByTagName("result").length;
     for( let i = 0; i < length; i++ ){
-      let obj = {
-        title : xmlData.getElementsByTagName("title")[i].childNodes[0].nodeValue,
-        link  : xmlData.getElementsByTagName("url")[i].childNodes[0].nodeValue,
-        snippet : xmlData.getElementsByTagName("description")[i].childNodes[0].nodeValue,
+      try{
+        let obj = {
+          title : xmlData.getElementsByTagName("title")[i].childNodes[0].nodeValue,
+          link  : xmlData.getElementsByTagName("url")[i].childNodes[0].nodeValue,
+          snippet : xmlData.getElementsByTagName("description")[i].childNodes[0].nodeValue,
+        }
+        json.push(obj); 
+      }catch(error){
+        return null;
       }
-      json.push(obj); 
     }
     return JSON.stringify(json);
   }
@@ -253,10 +269,18 @@ export default class GSearch extends React.Component {
       return;
     }
     let reformattedJson = [];
-    let uploadedJson = JSON.parse(uploadedData);
-    
+    let uploadedJson;
+    try{
+      uploadedJson = JSON.parse(uploadedData);
+    }catch(error){
+      return null;
+    }
     for( let i = 0; i < uploadedJson.Result.length; i++ ){
       let item = uploadedJson.Result[i];
+      //ensure it contains required data
+      if( !item.title && !item.url && !item.description ){
+        return null;
+      }
       let itemObj = {
         title : item.title,
         link : item.url,
@@ -381,8 +405,8 @@ export default class GSearch extends React.Component {
 
   //creates tables from the results received from Google json
   setResults(){
-
-    //render the technology stack if at the home page if nothig has been uploaded or searched on google
+    
+    //render the technology stack at the home page if nothig has been uploaded or searched on google
     if( this.props.renderTechStack ){
       return (<TechnologyStack /> );
     }
@@ -394,7 +418,7 @@ export default class GSearch extends React.Component {
 
     //don't render anythig if nothing has been searched or uploaded
     if( !this.state.searchResults  || !this.state.searchQuery){
-      return null;
+      return ;
     }
 
     let table = [];

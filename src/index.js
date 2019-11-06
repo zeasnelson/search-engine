@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Components/App'
 import './index.css';
-import { Router} from 'react-router-dom'
+import { HashRouter} from 'react-router-dom'
 let CreateHashHistory = require("history").createBrowserHistory;
 
 const hashHistory = CreateHashHistory({basename: process.env.PUBLIC_URL})
@@ -10,9 +10,9 @@ const hashHistory = CreateHashHistory({basename: process.env.PUBLIC_URL})
 class MainWindow extends React.Component{
   render() {
     return (
-      <Router history={hashHistory} path={'search-engine/'}>
+      <HashRouter basename='/'>
         <App />
-      </Router>
+      </HashRouter>
     );
   }
 

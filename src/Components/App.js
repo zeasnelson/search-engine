@@ -11,8 +11,8 @@ class App extends React.Component {
       
         <div className="container-fluid p-0">
             <NavBar />
-              <Route exact path='/' component={MainSearchBox}/>
-              <Route path='/browserspecs' component={BrowserSpecs}/>
+            <Route exact path='/' component={MainSearchBox}/>
+            <Route path='/browserspecs' component={BrowserSpecs}/>
         </div>
     );
   }
