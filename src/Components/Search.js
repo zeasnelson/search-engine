@@ -81,7 +81,7 @@ export default class GSearch extends React.Component {
 
     if( !json ){
       let error = `{"Result":[{
-          "title":"Looks like this ${fileName} file is not a valid !",
+          "title":"Looks like this ${fileName} file is not valid and connot be parsed!",
           "url":"https://www.google.com/search?q=${fileName} format",
           "description":"Make  sure it is valid ${fileName}"}
       ]}`
@@ -217,16 +217,28 @@ export default class GSearch extends React.Component {
     if( !uploadedData ){
       return;
     }
-    let lines = uploadedData.split(/"\n"/);
+    
+    //first replace all ↵ with new lines, ↵ are inserted when the enter key is pressed instead of new line
+    let newData = uploadedData.replace(/(\r\n|\n|\r)/gm, "\n");
+    let lines = newData.split(/"\n"/);
+    console.log(uploadedData);
+    
+    console.log(lines.length);
+    lines.forEach(element => {
+      console.log(element);
+    });
     let json = [];
     for( let i = 0; i < lines.length; i++ ){
       let headers = lines[i].split(/","/);
+      
+      
       if( headers.length === 3 ){
         let jsonObj = {
           title : headers[0].replace(/"/, ""),
           link : headers[1].replace(/"/, ""),
           snippet : headers[2].replace(/"/, ""),
         }
+        
         json.push(jsonObj);
       }
     }
